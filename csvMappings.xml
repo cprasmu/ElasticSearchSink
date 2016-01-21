@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://www.ibm.com/software/data/infosphere/streams/csvparser">
+	<mapping name="DevanAndCornwall">
+		<assign attribute="Month" index="0"/>
+		<assign attribute="ReportedBy" index="1"/>
+		<assign attribute="FallsWithin" index="2"/>
+		<assign attribute="Easting" index="3"/>
+		<assign attribute="Northing" index="4"/>
+		<assign attribute="Location" index="5"/>
+		<assign attribute="CrimeType" index="6"/>
+		<assign attribute="Context" index="7"/>
+	</mapping>
+</mappings>

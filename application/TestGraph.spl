@@ -1,0 +1,38 @@
+namespace application ;
+
+use com.ibm.streams.teda.internal::DirScan ;
+use com.ibm.streams.teda.internal.ingestion::FileMove ;
+use com.ibm.streams.teda.parser.text::CSVParse ;
+
+composite YouTubeDemo_2
+{
+	graph
+		(stream<rstring Month, rstring ReportedBy, rstring FallsWithin,
+			rstring Easting, rstring Northing, rstring Location, rstring CrimeType,
+			rstring Context> CSVParse_2_out0 ; stream<rstring varName> CSVParse_2_out1)
+			as CSVParser = CSVParse(FileSource_6_out0 as inPort0Alias)
+		{
+			param
+				mappingDocument : "csvMappings.xml" ;
+				ignoreEmptyLines : true ;
+		}
+
+		(stream<rstring line> FileSource_6_out0) as FileSource_6 = FileSource()
+		{
+			param
+				file : "/home/streamsadmin/data/2012-12-devon-and-cornwall-street.csv" ;
+				format : line ;
+		}
+
+		() as ElastikSearchSink_3 = ElastikSearchSink(CSVParse_2_out0)
+		{
+			param
+				dataType : "semData" ;
+				elasticHost : "localhost" ;
+				indexName : "sem_data" ;
+				clusterName : "elasticsearch" ;
+		}
+
+}
+
+
